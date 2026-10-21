@@ -1,0 +1,12 @@
+# Local tooling
+.claude/
+node_modules/
+
+# Everything in this repo is public. Keep CAD/model files and private documents out.
+*.glb
+*.gltf
+*.fbx
+*.blend
+*.pdf
+!assets/Wasif_Ishmam_CV.pdf
+.env*

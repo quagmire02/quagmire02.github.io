@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>T. M. Wasif Ishmam · Spatial AI & Computer Vision</title>
+  <meta name="description" content="T. M. Wasif Ishmam: spatial AI and computer vision in Dhaka. Feed-forward 3D reconstruction, perception for underwater robots, vision-language models, Unreal Engine.">
+  <meta name="theme-color" content="#0d0d0c">
+  <meta property="og:title" content="T. M. Wasif Ishmam · Spatial AI & Computer Vision">
+  <meta property="og:description" content="I turn video into 3D scenes, help underwater robots see, and make language models measure instead of guess.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/thumbs/thriftsplat.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Instrument+Serif:ital@0;1&family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" href="assets/scene/town.bin" as="fetch" crossorigin>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#work">Skip to work</a>
+
+  <header class="nav" data-nav>
+    <a class="brand" href="#top" aria-label="T. M. Wasif Ishmam, back to top">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="6" y1="18" x2="20" y2="18" class="ax-x"/>
+        <line x1="6" y1="18" x2="6" y2="4" class="ax-y"/>
+        <line x1="6" y1="18" x2="14" y2="11" class="ax-z"/>
+        <circle cx="6" cy="18" r="2"/>
+      </svg>
+      <span>T. M. Wasif Ishmam</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#duburi">Duburi</a>
+      <a href="#worlds">Worlds</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cv" href="assets/Wasif_Ishmam_CV.pdf" data-cv target="_blank" rel="noopener">CV</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="sr">Menu</span><i></i><i></i>
+    </button>
+  </header>
+
+  <div class="menu" id="menu" data-menu hidden>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#work">Work</a>
+    <a href="#duburi">Duburi</a>
+    <a href="#worlds">Worlds</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <main>
+    <!-- View 00 · the scene itself -->
+    <section class="hero t-night" id="top" data-hero data-cloud="assets/scene/town.bin" data-splat="assets/scene/town.ksplat" data-splat-lite="assets/scene/town-lite.ksplat">
+      <canvas aria-label="Interactive 3D point cloud of a town, reconstructed from drone video"></canvas>
+
+      <div class="hero-copy">
+        <p class="kicker">Spatial AI · 3D vision · Robotics</p>
+        <h1 class="hero-name"><span class="initials">T.&nbsp;M.</span> Wasif<br>Ishmam</h1>
+        <p class="hero-lede">I turn video into 3D scenes, help underwater robots see, and make language models <em>measure</em> instead of guess.</p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#work">See the work</a>
+          <a class="btn btn-line" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="vp vp-top">
+        <span class="vp-dot" aria-hidden="true"></span>
+        <span>ThriftSplat · town_orbit.ply</span>
+        <span class="vp-sep" aria-hidden="true">/</span>
+        <span data-readout>az 000°  el 00°</span>
+      </div>
+
+      <div class="vp vp-tools" role="group" aria-label="Viewport controls">
+        <div class="seg">
+          <button type="button" data-mode="splat" aria-pressed="true">Splat</button>
+          <button type="button" data-mode="rgb" aria-pressed="false">Points</button>
+          <button type="button" data-mode="depth" aria-pressed="false">Depth</button>
+        </div>
+        <div class="seg seg-zoom" role="group" aria-label="Zoom">
+          <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+          <span data-zoom-level>1.0×</span>
+          <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+        </div>
+        <button type="button" class="tool" data-cams aria-pressed="true">Cameras</button>
+        <button type="button" class="tool" data-replay aria-label="Rebuild the point cloud">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.6-3.7M13 2.5V5h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Rebuild
+        </button>
+        <svg class="gizmo" viewBox="0 0 40 40" data-gizmo aria-hidden="true">
+          <line x1="20" y1="20" x2="35" y2="20" class="ax-x"/>
+          <line x1="20" y1="20" x2="20" y2="5" class="ax-y"/>
+          <line x1="20" y1="20" x2="28" y2="28" class="ax-z"/>
+        </svg>
+      </div>
+
+      <p class="vp vp-caption">
+        <strong data-stage><span data-count>0</span> / 240,000 points</strong>
+        A town rebuilt by ThriftSplat from a drone orbit video, on a 6&nbsp;GB GPU: first the point cloud, then the Gaussian splat.
+        <span class="vp-hint">Drag to orbit · pinch, Ctrl&nbsp;+&nbsp;scroll or double-click to zoom.</span>
+      </p>
+    </section>
+
+    <!-- View 01 · About -->
+    <section class="section about t-ember" id="about" data-view="1" data-view-name="About">
+      <header class="section-head is-right">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 01</span> About</p>
+        <h2>Every video is a 3D scene <em>in disguise.</em></h2>
+      </header>
+      <div class="about-grid is-flipped">
+        <div class="about-copy">
+          <p class="about-lead">I'm Wasif, a computer vision researcher in Dhaka working on spatial AI: getting machines to understand the 3D world from ordinary cameras.</p>
+          <p>Most of my work is built on feed-forward 3D models like MapAnything and VGGT, which recover camera poses and depth from plain video in a single pass. I make them fit on small GPUs and turn what they see into point clouds, Gaussian splats and digital twins you can fly through, or drop into Unreal Engine.</p>
+          <p>On the robotics side, I was research head of BRACU Duburi's AI and machine vision team, working with them on how our underwater robots see: auto-labelled training data, perception running live on a Jetson Orin, and testing in simulation before anything touched water. Lately I pair vision-language models with geometry, so they measure the world instead of guessing at it.</p>
+        </div>
+        <figure class="pet" data-pet>
+          <span class="pet-shadow" aria-hidden="true"></span>
+          <canvas aria-label="A small underwater robot, as an interactive 3D model"></canvas>
+          <span class="pet-loading">Loading…</span>
+          <div class="pet-labels" data-pet-labels aria-hidden="true"></div>
+          <div class="pet-ui">
+            <button type="button" data-pet-explode aria-pressed="false">Take it apart</button>
+            <button type="button" data-pet-thrust>Thrust</button>
+          </div>
+          <figcaption><b>Meet the little one.</b> An AUV I modelled. It watches your cursor. Drag to spin it, click it to fire the thrusters.</figcaption>
+        </figure>
+      </div>
+      <div class="about-more">
+        <div class="axis axis-x"><span class="axis-tag">X</span><div><h3>Spatial AI</h3><p>Feed-forward reconstruction, Gaussian splatting, digital twins from video and drones.</p></div></div>
+        <div class="axis axis-y"><span class="axis-tag">Y</span><div><h3>Robotics</h3><p>Underwater perception, sim-to-real in Unreal Engine 5, edge inference on Jetson.</p></div></div>
+        <div class="axis axis-z"><span class="axis-tag">Z</span><div><h3>Vision-language</h3><p>Grounding, tracking and measuring with VLMs, and LLM products people use.</p></div></div>
+      </div>
+      <dl class="stats">
+        <div><dt class="stat-num">8<sup>th</sup><small>/ 58</small></dt><dd>RoboSub 2025 and 2026, with BRACU Duburi</dd></div>
+        <div><dt class="stat-num">68<small>MB</small></dt><dd>The entire Gaussian splat of the town, compressed even with finer details</dd></div>
+        <div><dt class="stat-num">6<small>GB</small></dt><dd>VRAM for my whole custom pipeline to work: from any video to point cloud to Gaussian splat</dd></div>
+      </dl>
+      <div class="toolkit">
+        <div class="tool-group"><h3>Vision &amp; 3D</h3><p>PyTorch · OpenCV · CUDA · YOLO · RT-DETR · DINOv2 · SAM&nbsp;2 · Depth Anything&nbsp;V2 · MoGe-2 · MapAnything · VGGT · gsplat · COLMAP / GLOMAP</p></div>
+        <div class="tool-group"><h3>Language &amp; multimodal</h3><p>Qwen3-VL · Gemini · Whisper · Transformers · LLM triage &amp; tool pipelines</p></div>
+        <div class="tool-group"><h3>Engines &amp; simulation</h3><p>Unreal Engine&nbsp;5 · Unity · Blender · SimScale · three.js · GLSL</p></div>
+        <div class="tool-group"><h3>Deploy &amp; build</h3><p>Jetson Orin · ONNX Runtime · FastAPI · Redis&nbsp;+&nbsp;RQ · Cloudflare Workers · Supabase · Next.js · Tauri · Linux / WSL2</p></div>
+      </div>
+    </section>
+
+    <!-- View 02 · Experience: positions as keyframes on a camera path -->
+    <section class="section experience t-night" id="experience" data-view="2" data-view-name="Experience">
+      <header class="section-head">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 02</span> Experience</p>
+        <h2>The <em>trajectory</em> so far</h2>
+      </header>
+      <ol class="trajectory" data-trajectory>
+        <li class="keyframe">
+          <div class="kf-when"><span>2025 – 2026</span><b class="kf-badge">8th of 58 · RoboSub 2026</b></div>
+          <div class="kf-body">
+            <h3>Research Head, AI &amp; Machine Vision</h3>
+            <p class="kf-org">BRACU Duburi · Bangladesh's first autonomous underwater vehicle team · BRAC University, Dhaka</p>
+            <ul>
+              <li>Worked with the vision team on research for Duburi's perception stack, which runs on an NVIDIA Jetson Orin.</li>
+              <li>Built the YOLO auto-labelling pipeline that turns raw pool video into training data, with distance-gated labels for torpedo holes. <a href="#work" data-open-project="autolabel">Open it&nbsp;→</a></li>
+              <li>Added metric depth from Depth Anything V2, calibrated every frame against six slalom poles.</li>
+              <li>Wired perception into the real-time autonomy loop with the mechanical, electrical and controls sub-teams, after testing the tasks in Unreal Engine&nbsp;5.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="keyframe">
+          <div class="kf-when"><span>2025</span><b class="kf-badge">8th of 58 · RoboSub 2025</b></div>
+          <div class="kf-body">
+            <h3>Senior Member, AI &amp; Machine Vision</h3>
+            <p class="kf-org">BRACU Duburi · BRAC University, Dhaka</p>
+            <ul>
+              <li>Part of the vision team that took Duburi and Dubomini to RoboSub 2025 in California.</li>
+              <li>Collected and labelled pool footage and trained the YOLO detectors for the competition tasks.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="keyframe kf-edu">
+          <div class="kf-when"><span>2026</span><b class="kf-badge">Graduated</b></div>
+          <div class="kf-body">
+            <h3>B.Sc. Computer Science &amp; Engineering</h3>
+            <p class="kf-org">BRAC University, Dhaka</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- View 03 · Work -->
+    <section class="section work t-night" id="work" data-view="3" data-view-name="Work">
+      <header class="section-head">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 03</span> Work</p>
+        <h2>Work, in <em>views</em></h2>
+      </header>
+      <div class="filters" role="toolbar" aria-label="Filter projects" data-filters>
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="3d" aria-pressed="false">3D</button>
+        <button type="button" data-filter="language" aria-pressed="false">Vision-language</button>
+        <button type="button" data-filter="perception" aria-pressed="false">Perception</button>
+        <button type="button" data-filter="products" aria-pressed="false">Products</button>
+      </div>
+      <ul class="gallery" data-gallery></ul>
+    </section>
+
+    <!-- View 04 · Duburi -->
+    <section class="section duburi t-ember" id="duburi" data-view="4" data-view-name="Duburi">
+      <header class="section-head is-right">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 04</span> BRACU Duburi</p>
+        <h2>Eighth of 58. <em>Twice.</em></h2>
+      </header>
+      <div class="duburi-grid is-flipped">
+        <div class="duburi-copy">
+          <p class="duburi-intro"><strong>Duburi is Bangladesh's first autonomous underwater vehicle</strong>, built by students at BRAC University. Today the team runs two robots, Duburi and Dubomini, that work the RoboSub course in California on their own, with no remote control. I worked on how they see.</p>
+          <dl class="duburi-facts">
+            <div><dt>1st</dt><dd>autonomous underwater vehicle in Bangladesh</dd></div>
+            <div><dt>8th<small>/58</small></dt><dd>RoboSub 2025</dd></div>
+            <div><dt>8th<small>/58</small></dt><dd>RoboSub 2026</dd></div>
+            <div><dt>2</dt><dd>robots sharing the course</dd></div>
+          </dl>
+          <p class="duburi-links">
+            <a class="link-arrow" href="https://robonation.org/programs/robosub/" target="_blank" rel="noopener">About RoboSub</a>
+          </p>
+        </div>
+        <div class="duburi-media">
+          <figure class="clip clip-main">
+            <video muted loop playsinline preload="none" poster="assets/media/duburi-sim-gate.jpg" data-autoplay>
+              <source src="assets/media/duburi-sim-gate.mp4" type="video/mp4">
+            </video>
+            <figcaption><span>Unreal Engine 5</span> Duburi lining up on the gate in simulation</figcaption>
+          </figure>
+          <div class="clip-pair">
+            <figure class="clip">
+              <video muted loop playsinline preload="none" poster="assets/media/duburi-sim-octagon.jpg" data-autoplay>
+                <source src="assets/media/duburi-sim-octagon.mp4" type="video/mp4">
+              </video>
+              <figcaption><span>UE5</span> Octagon task</figcaption>
+            </figure>
+            <figure class="clip">
+              <video muted loop playsinline preload="none" poster="assets/media/duburi-pool-gate.jpg" data-autoplay>
+                <source src="assets/media/duburi-pool-gate.mp4" type="video/mp4">
+              </video>
+              <figcaption><span>Pool</span> The real gate, in pool footage</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View 05 · Worlds -->
+    <section class="section worlds t-night" id="worlds" data-view="5" data-view-name="Worlds">
+      <header class="section-head">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 05</span> Engines &amp; twins</p>
+        <h2>Worlds I've <em>built</em></h2>
+      </header>
+      <div class="worlds-grid" data-worlds></div>
+    </section>
+
+    <!-- View 06 · Contact: one camera slot is still empty -->
+    <section class="section contact is-flipped t-ember" id="contact" data-view="6" data-view-name="Contact">
+      <div class="contact-copy">
+        <p class="eyebrow"><svg class="frustum" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6 L9 1 V11 Z M9 1 H19 V11 H9"/></svg><span>View 06</span> Contact</p>
+        <h2 class="contact-title">Add a <em>view.</em></h2>
+        <p class="contact-sub">Every reconstruction gets sharper with one more viewpoint. Research, collaboration, or a robot that needs to see: write to me.</p>
+        <div class="contact-row">
+          <a class="contact-mail" href="mailto:wasifishmam02@gmail.com">wasifishmam02@gmail.com</a>
+          <button type="button" class="btn btn-line btn-small" data-copy="wasifishmam02@gmail.com">Copy</button>
+        </div>
+        <ul class="contact-links">
+          <li><a class="link-arrow" href="https://www.linkedin.com/in/wasif-ishmam" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a class="link-arrow" href="https://github.com/quagmire02" target="_blank" rel="noopener">GitHub</a></li>
+          <li data-cv-item><a class="link-arrow" href="assets/Wasif_Ishmam_CV.pdf" data-cv target="_blank" rel="noopener">CV (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="contact-orbit" aria-hidden="true">
+        <canvas data-contact-orbit data-cloud="assets/scene/town.bin"></canvas>
+        <p class="contact-orbit-cap">23 cameras placed. <b>One slot open.</b></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer t-night">
+    <p>© 2026 T. M. Wasif Ishmam · Dhaka</p>
+    <p>Every point on this page is real ThriftSplat output, rendered live.</p>
+  </footer>
+
+  <!-- Fixed orbit: where you are on the page, as a camera on the ring -->
+  <aside class="orbit-ind" data-orbit-ind aria-hidden="true">
+    <svg viewBox="0 0 64 64"><g data-ticks></g><g data-marker><path d="M32 7 L28 1 H36 Z"/></g></svg>
+    <p><span data-orbit-num>View 01 / 06</span><b data-orbit-name>About</b></p>
+  </aside>
+
+  <div class="cursor" data-cursor aria-hidden="true"><span>Open</span></div>
+
+  <!-- Duburi, swimming down the page with you -->
+  <button type="button" class="buddy" data-buddy aria-label="Duburi: dive to the next section">
+    <canvas></canvas>
+    <span class="buddy-tip" data-buddy-tip>Dive to the next view</span>
+  </button>
+  <div class="bubbles" data-bubbles aria-hidden="true"></div>
+  <div class="beam" data-beam aria-hidden="true"></div>
+
+  <!-- The book: opens from a gallery card -->
+  <dialog class="book" data-book aria-label="Project details">
+    <div class="book-backdrop" data-backdrop></div>
+    <div class="book-stage" data-stage>
+      <div class="book-spread" data-spread>
+        <section class="page page-left" data-left></section>
+        <section class="page page-right" data-right></section>
+        <div class="spine" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="book-controls">
+      <button type="button" class="book-btn" data-book-prev aria-label="Previous project">←<span>Prev</span></button>
+      <p class="book-count" data-book-count></p>
+      <button type="button" class="book-btn" data-book-next aria-label="Next project"><span>Next</span>→</button>
+    </div>
+    <button type="button" class="book-close" data-book-close aria-label="Close">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/hero.js"></script>
+  <script type="module" src="js/orbit.js"></script>
+  <script type="module" src="js/about.js"></script>
+  <script type="module" src="js/companion.js"></script>
+</body>
+</html>
