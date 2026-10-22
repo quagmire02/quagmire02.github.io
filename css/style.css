@@ -693,3 +693,16 @@ h2.splat.is-in .w { transform: none; opacity: 1; }
 
 /* two night views in a row get a hairline between them */
 .t-night + .t-night { border-top: 1px solid rgba(255, 255, 255, .08); }
+
+/* ---------- phones and tablets: the hero copy and its caption stack in flow ----------
+   Pinned separately, a caption that wraps (e.g. "500,000 Gaussian splats · trained by ThriftSplat")
+   rode up into the buttons. In flow, the caption always sits below them. */
+@media (max-width: 900px) {
+  .hero {
+    height: auto; min-height: max(640px, 100svh);
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 22px;
+    padding: calc(var(--nav-h) + 140px) var(--gutter) 22px;   /* clears the viewport tools (two rows on phones) */
+  }
+  .hero-copy, .vp-caption { position: relative; inset: auto; }
+  .vp-caption { max-width: none; }
+}
