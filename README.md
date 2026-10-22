@@ -56,7 +56,7 @@ Then open http://localhost:5180. Opening `index.html` straight from disk won't w
    },
    ```
 
-   Optional extras: `facts: [["3.4 GB", "peak VRAM"]]` shows big numbers on the right page, and `tall: true` on a media item suits portrait images.
+   Optional extras: `facts: [["3.4 GB", "peak VRAM"]]` shows big numbers on the right page, and `tall: true` on a media item suits portrait images. For a product, set `techLabel: "What each feature does"` and write each bullet as `["Feature name", "what it does"]`; the name shows in bold.
 3. **Check it locally** with `node tools/serve.mjs`, then publish:
 
    ```bash

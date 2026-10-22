@@ -219,8 +219,8 @@ function rightHTML(p, withId = true) {
       ${facts}
       <h3 class="rp-label">In plain words</h3>
       <p class="rp-plain">${esc(p.plain)}</p>
-      <h3 class="rp-label">Under the hood</h3>
-      <ul class="rp-tech">${p.tech.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+      <h3 class="rp-label">${esc(p.techLabel ?? "Under the hood")}</h3>
+      <ul class="rp-tech">${p.tech.map((t) => `<li>${Array.isArray(t) ? `<b>${esc(t[0])}:</b> ${esc(t[1])}` : esc(t)}</li>`).join("")}</ul>
       <ul class="rp-stack" aria-label="Stack">${p.stack.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
       ${links}
       <span class="folio">p. ${pad(n * 2 + 2)}</span>
