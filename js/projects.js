@@ -44,7 +44,7 @@ export const projects = [
     badge: "NeurIPS 2026 challenge",
     thumb: "assets/thumbs/quantiphy.jpg",
     facts: [
-      ["60.3", "score on the hidden test set"],
+      ["62.9", "best score on the hidden test set"],
       ["55.6", "human baseline in the QuantiPhy paper"],
       ["4B", "open-weight VLM, on a 6 GB GPU"],
     ],
