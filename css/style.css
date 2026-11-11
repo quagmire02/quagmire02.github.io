@@ -7,14 +7,15 @@
    T. M. Wasif Ishmam · portfolio
    The page is an orbit: the hero rebuilds a scene from 24 cameras, every
    section below is one more "view", and things arrive the way splats do.
-   Views alternate between two fields: night and ember orange.
+   Views alternate between two warm fields: night and paper. Orange is the
+   accent, and its opposite, blue, is the pop on small details.
    ========================================================================== */
 
 @property --splat { syntax: "<length>"; inherits: false; initial-value: 0px; }
 
 :root {
   --night: #0e0e0d;
-  --ember: #cc4c24;   /* was #f0592a; 15% less intense */
+  --ember: #ece5d6;   /* the light field: warm paper (was ember orange #cc4c24) */
   --paper: #f7f4ec;
   --ink: #15130f;
   --orange: #ff6a2b;
@@ -41,9 +42,9 @@
   --ease: cubic-bezier(.2, .7, .1, 1);
 }
 
-/* ---------- colour fields: views alternate night / ember ---------- */
-.t-night   { --bg: var(--night);   --fg: #f4f1e9; --fg-2: #dcd7cd; --fg-3: #b9b3a8; --line: rgba(244,241,233,.17); --hi: var(--orange); --dot: rgba(255,255,255,.06); }
-.t-ember   { --bg: var(--ember);   --fg: #0b0705; --fg-2: #160d07; --fg-3: #2a170b; --line: rgba(11,7,5,.26);   --hi: #fff6ea;        --dot: rgba(20,13,8,.10); }
+/* ---------- colour fields: views alternate night / paper ---------- */
+.t-night   { --bg: var(--night);   --fg: #f4f1e9; --fg-2: #dcd7cd; --fg-3: #b9b3a8; --line: rgba(244,241,233,.17); --hi: var(--orange); --pop: #6a9dff; --dot: rgba(255,255,255,.06); }
+.t-ember   { --bg: var(--ember);   --fg: #15130f; --fg-2: #2b2720; --fg-3: #5c554a; --line: rgba(21,19,15,.2);  --hi: #c2410c;        --pop: #1f4fd6; --dot: rgba(21,19,15,.09); }
 .t-night, .t-ember {
   background-color: var(--bg); color: var(--fg);
   background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
@@ -74,7 +75,7 @@ ol, ul { padding: 0; list-style: none; }
 }
 .eyebrow { color: var(--fg); display: flex; gap: 12px; align-items: center; }
 .eyebrow span { font: 500 11.5px/1 var(--mono); letter-spacing: 0; text-transform: none; color: var(--fg); padding: 5px 8px; border: 1px solid var(--line); border-radius: 999px; }
-.frustum { width: 24px; height: 14px; fill: none; stroke: var(--hi); stroke-width: 1.5; stroke-linejoin: round; flex: none; }
+.frustum { width: 24px; height: 14px; fill: none; stroke: var(--pop, var(--hi)); stroke-width: 1.5; stroke-linejoin: round; flex: none; }
 
 h2 { font: var(--d-weight) clamp(42px, 6vw, 96px)/var(--d-lead) var(--display); letter-spacing: var(--d-track); }
 h2 em, .hero-lede em { font-style: var(--em-style); font-weight: var(--em-weight); color: var(--hi); }
@@ -97,7 +98,7 @@ h2 em, .hero-lede em { font-style: var(--em-style); font-weight: var(--em-weight
   text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 2px; transition: color .2s;
 }
 .link-arrow::after { content: "↗"; font-size: .85em; transition: transform .25s var(--ease); }
-.link-arrow:hover { color: var(--hi); }
+.link-arrow:hover { color: var(--pop, var(--hi)); }
 .link-arrow:hover::after { transform: translate(2px, -2px); }
 
 .section { position: relative; padding: clamp(96px, 12vw, 168px) max(var(--gutter), calc((100vw - var(--max)) / 2)); }
@@ -228,7 +229,7 @@ h2 em, .hero-lede em { font-style: var(--em-style); font-weight: var(--em-weight
 .pet-labels { position: absolute; inset: 0; pointer-events: none; }
 .pet-label {
   position: absolute; left: 0; top: 0; transform: translate(calc(var(--lx) + 16px), calc(var(--ly) - 50%)); white-space: nowrap;
-  font: 600 12px/1 var(--text); color: var(--fg); padding: 6px 9px; background: var(--hi); border-radius: 999px;
+  font: 600 12px/1 var(--text); color: var(--bg); padding: 6px 9px; background: var(--fg); border-radius: 999px;
   opacity: 0; transition: opacity .35s;
 }
 .pet-label::before { content: ""; position: absolute; left: -14px; top: 50%; width: 10px; height: 1.5px; background: var(--fg); }
@@ -296,7 +297,7 @@ h2 em, .hero-lede em { font-style: var(--em-style); font-weight: var(--em-weight
 .card-badge { position: absolute; right: 10px; top: 10px; z-index: 2; font: 500 10px/1.2 var(--mono); text-transform: uppercase; background: rgba(13,13,12,.8); color: #fff; padding: 6px 8px; border-radius: 999px; }
 .card-meta { display: block; margin-top: 18px; }
 .card-row { display: flex; align-items: baseline; gap: 10px; }
-.card-num { font: 500 12px/1 var(--mono); color: var(--hi); }
+.card-num { font: 500 12px/1 var(--mono); color: var(--pop, var(--hi)); }
 .card-title { font: 600 20px/1.2 var(--text); letter-spacing: -.015em; }
 .card-arrow { margin-left: auto; font-size: 17px; color: var(--fg-3); transition: transform .3s var(--ease), color .3s; }
 .card-btn:hover .card-arrow { transform: translate(3px, -3px); color: var(--hi); }
@@ -353,7 +354,7 @@ h2 em, .hero-lede em { font-style: var(--em-style); font-weight: var(--em-weight
 .contact-sub { margin-top: 22px; color: var(--fg-2); font-size: 19px; line-height: 1.5; max-width: 40ch; }
 .contact-row { margin-top: 38px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .contact-mail { font: 500 clamp(24px, 2.8vw, 40px)/1.15 var(--text); letter-spacing: -.02em; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat; padding-bottom: 6px; transition: color .2s; overflow-wrap: anywhere; }
-.contact-mail:hover { color: var(--hi); }
+.contact-mail:hover { color: var(--pop, var(--hi)); }
 .contact-links { margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; }
 .contact-orbit { position: relative; padding: 0 0 40px; }
 .contact-orbit canvas { width: 100%; aspect-ratio: 5 / 4; }
@@ -576,7 +577,7 @@ h2.splat.is-in .w { transform: none; opacity: 1; }
 }
 .keyframe.is-on::before { background: var(--orange); box-shadow: 0 0 0 7px rgba(255,106,43,.2); }
 .kf-when span { display: block; font: 500 13px/1 var(--mono); color: var(--fg-2); padding-top: 9px; }
-.kf-badge { display: inline-block; margin-top: 14px; font: 600 13px/1 var(--text); padding: 8px 11px; border-radius: 999px; background: var(--orange); color: #140b06; }
+.kf-badge { display: inline-block; margin-top: 14px; font: 600 13px/1 var(--text); padding: 8px 11px; border-radius: 999px; background: var(--pop, var(--orange)); color: #0a1226; }
 .kf-edu .kf-badge { background: transparent; color: var(--fg); border: 1.5px solid var(--line); }
 .kf-body h3 { font: 400 clamp(28px, 2.8vw, 42px)/1.08 var(--display); letter-spacing: -.01em; }
 .kf-org { margin-top: 10px; color: var(--fg-2); font-size: 16px; }
@@ -584,7 +585,7 @@ h2.splat.is-in .w { transform: none; opacity: 1; }
 .kf-body li { position: relative; padding-left: 24px; color: var(--fg-2); line-height: 1.6; }
 .kf-body li::before { content: ""; position: absolute; left: 0; top: .78em; width: 11px; height: 2px; background: var(--orange); }
 .kf-body a { color: var(--fg); font-weight: 600; text-underline-offset: 3px; }
-.kf-body a:hover { color: var(--orange); }
+.kf-body a:hover { color: var(--pop, var(--orange)); }
 
 /* ---------- duburi facts ---------- */
 .duburi-intro strong { color: var(--fg); font-weight: 600; }
@@ -661,15 +662,15 @@ h2.splat.is-in .w { transform: none; opacity: 1; }
   .contact.is-flipped .contact-sub { margin-left: 0; }
 }
 
-/* ---------- orange fields: a faint light in the middle so they are not flat ---------- */
+/* ---------- paper fields: a faint light in the middle so they are not flat ---------- */
 .t-ember {
   background-image:
     radial-gradient(var(--dot) 1px, transparent 1.4px),
-    radial-gradient(ellipse 72% 62% at 50% 46%, rgba(255, 244, 232, .22), rgba(255, 244, 232, .08) 45%, rgba(255, 244, 232, 0) 76%);
+    radial-gradient(ellipse 72% 62% at 50% 46%, rgba(255, 255, 255, .55), rgba(255, 255, 255, .2) 45%, rgba(255, 255, 255, 0) 76%);
   background-size: 22px 22px, 100% 100%;
   background-repeat: repeat, no-repeat;
 }
-/* the town scene keeps its own night panel on orange */
+/* the town scene keeps its own night panel on paper */
 .t-ember .contact-orbit { background: var(--night); border-radius: 6px; padding: 18px 18px 44px; box-shadow: 0 30px 60px -24px rgba(11,7,5,.55); }
 .t-ember .contact-orbit-cap { bottom: 18px; }
 
