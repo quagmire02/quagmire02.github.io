@@ -1,4 +1,4 @@
-import { projects, worlds } from "./projects.js?v=20261115";
+import { projects, worlds } from "./projects.js?v=20261120";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];

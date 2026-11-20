@@ -36,22 +36,22 @@ export const projects = [
   {
     id: "livesplat",
     title: "LiveSplat",
-    line: "Film a tabletop, then move, push and question the objects in its 3D scan.",
+    line: "Film a scene, then move, push and question the objects in its 3D scan.",
     cats: ["3d", "language"],
     year: "2026",
     status: "Open source",
     badge: "Meta AI Global Hackathon",
     thumb: "assets/thumbs/livesplat.jpg",
-    preview: M + "livesplat.mp4",
+    preview: M + "livesplat-preview.mp4",
     facts: [
       ["31 s", "of phone video became a 2-million-Gaussian scene"],
       ["8 GB", "GPU runs it all, start to finish"],
       ["5", "robot arms to try grasps with"],
     ],
-    plain: "Film a table with your phone and LiveSplat rebuilds it as a 3D scene where every object is its own thing. Move a mug and it leaves no ghost behind. Push it and physics takes over. Ask what it is, get a how-to drawn onto the real objects, or check whether a robot gripper could pick it up.",
+    plain: "Film a table, a room or a garden with your phone and LiveSplat rebuilds it as a 3D scene where every object is its own thing. Move a mug and it leaves no ghost behind. Push it and physics takes over. Ask what it is, get a how-to drawn onto the real objects, or check whether a robot gripper could pick it up.",
     tech: [
-      "ThriftSplat does the reconstruction, as a separate program. Everything after the trained splat is new: the tabletop becomes the world frame, and SAM 3.1 text prompts split the scene into one splat per object.",
-      "Each object is separated into a movable body and the contact layer it leaves on the table, and the exposed table is filled in, so a moved object leaves a clean surface.",
+      "ThriftSplat does the reconstruction, as a separate program. Everything after the trained splat is new: the table or ground becomes the world frame, and SAM 3.1 text prompts split the scene into one splat per object.",
+      "Each object is separated into a movable body and the contact layer it leaves on the surface below, and the exposed surface is filled in, so a moved object leaves a clean surface.",
       "Meta's Muse Spark names each object from several real frames and estimates its material, mass and friction. Typical object sizes set the scene's scale without a ruler.",
       "Plain-language requests become tool calls checked against a schema: move, recolour, push, drop, measure, simulate. The model never runs code.",
       "A MuJoCo world is built from the scan. A Director simulates several plans and plays back the best one.",
@@ -60,7 +60,7 @@ export const projects = [
     stack: ["Gaussian splatting", "SAM 3.1", "Muse Spark", "MuJoCo", "Hunyuan3D", "PyTorch"],
     links: [["GitHub", "https://github.com/quagmire02/Livesplat"]],
     media: [
-      { type: "video", src: M + "livesplat.mp4", poster: M + "livesplat.jpg", cap: "A phone-scanned tabletop, with its objects moved, simulated and explained." },
+      { type: "video", src: M + "livesplat.mp4", poster: M + "livesplat.jpg", cap: "Phone-scanned scenes, a garden and a tabletop, with their objects moved, simulated and explained." },
     ],
   },
   {
